@@ -7,6 +7,7 @@ Write-Host "Virtual environment 'venv' created."
 # Instructions to activate
 Write-Host "Activate the virtual environment with:"
 Write-Host ".\venv\Scripts\Activate.ps1"
+Write-Host "If you have error, see SETUP.md"
 
 # Install packages if requirements.txt exists
 if (Test-Path "requirements.txt") {
