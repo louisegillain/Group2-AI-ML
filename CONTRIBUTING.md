@@ -7,7 +7,7 @@
 - You can create a branch either directly on GitHub in the branch dropdown or by using the command :
     git checkout -b 'branch-name' (this creates the branch and goes to it directly)
 - To upload your branch to GitHub :
-    git push origin branch-name'
+    git push origin 'branch-name'
 - To push updated branch :
     git add .
     git commit -m "Describe changes"
