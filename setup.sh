@@ -8,6 +8,7 @@ echo "Virtual environment 'venv' created."
 # Instructions to activate
 echo "Activate the virtual environment with:"
 echo "source venv/bin/activate"
+echo "If you have an error, see SETUP.md"
 
 # Install packages if requirements.txt exists
 if [ -f "requirements.txt" ]; then
