@@ -4,10 +4,10 @@
     - Create a new Folder on your computer where you would like your repo to be (through File Explorer)
     - Copy the path of this folder
     - Open a command prompt and run :
-        cd <path>, then type enter
+        cd < path >, then type enter
     - Click on Code on the repo page and copy the URL
     - On your command Prompt run :
-        git clone <URL>, then type enter
+        git clone < URL >, then type enter
       
 ## Virtual Environment
 The virtual environment is here to make sure we all have the same version of packages etc.
