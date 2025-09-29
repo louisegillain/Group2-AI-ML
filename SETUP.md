@@ -24,4 +24,4 @@ Considering everyone already installed Unity and Python :
       pip install -r requirements.txt (Same on Bash and PowerShell)  
     Right now at the beginning of the project, the requirements.txt file doesn't exist yet, we will fill it over time  
   - When finished with working on code deactivate :  
-      deactivate (Same on Bash and PowerShell)
+      deactivate (Same on Bash and PowerShell) or just close the Bash/PowerShell
