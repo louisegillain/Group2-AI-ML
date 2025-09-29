@@ -1,7 +1,7 @@
 # setup.ps1 - sets up Python virtual environment
 
 # Create virtual environment
-python -m venv venv
+py -3.10 -m venv venv
 Write-Host "Virtual environment 'venv' created."
 
 # Instructions to activate
