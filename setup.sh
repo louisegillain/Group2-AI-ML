@@ -2,7 +2,7 @@
 # setup.sh, sets up Python virtual environment
 
 # Create virtual environmen
-python3 -m venv venv
+python3.10 -m venv venv
 echo "Virtual environment 'venv' created."
 
 # Instructions to activate
