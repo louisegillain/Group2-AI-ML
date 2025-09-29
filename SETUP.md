@@ -13,7 +13,7 @@
 ## Virtual Environment
 The virtual environment is here to make sure we all have the same version of packages etc.  
 I don't have a Mac or Linux, so contact me if you have any trouble (Louise Gillain)  
-Considering everyone already installed Unity and Python :  
+Considering everyone already installed Unity and Python 3.10.11 :  
   - Run the automation script (only the first time you open the project):  
       Mac/Linux : bash setup.sh (if error try : pwsh -ExecutionPolicy Bypass -File ./setup.sh)  
       Windows (PowerShell) : .\setup.ps1 (if error try : powershell -ExecutionPolicy Bypass -File .\setup.ps1)  
