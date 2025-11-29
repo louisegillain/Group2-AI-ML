@@ -35,18 +35,32 @@ os.makedirs(generated_dir, exist_ok=True)
 def monitor_training(cmd, run_id):
     start_time = time.time()
     process = subprocess.Popen(cmd)
-    proc = psutil.Process(process.pid)
+    parent = psutil.Process(process.pid)
+
+    def tree_rss_bytes():
+        try:
+            procs = [parent] + parent.children(recursive=True)
+        except psutil.NoSuchProcess:
+            return 0
+        rss = 0
+        for p in procs:
+            try:
+                rss += p.memory_info().rss
+            except psutil.NoSuchProcess:
+                pass
+        return rss
 
     ram_samples = []
     peak_ram = 0
-    min_ram = 8000000000
+    min_ram = float("inf")
 
-    try : 
+    try:
         while process.poll() is None:
-            mem = proc.memory_info().rss / (1024 ** 2)
-            ram_samples.append(mem)
-            peak_ram = max(peak_ram, mem)
-            min_ram = min(min_ram, mem)
+            mem_bytes = tree_rss_bytes()
+            mem_kb = mem_bytes / 1024  # or / (1024**2) for MB
+            ram_samples.append(mem_kb)
+            peak_ram = max(peak_ram, mem_kb)
+            min_ram = min(min_ram, mem_kb)
             time.sleep(1)
     except psutil.NoSuchProcess:
         pass
@@ -54,20 +68,22 @@ def monitor_training(cmd, run_id):
     end_time = time.time()
     duration = end_time - start_time
     avg_ram = sum(ram_samples) / len(ram_samples) if ram_samples else 0
+    if min_ram == float("inf"):
+        min_ram = 0
 
     result_dir = os.path.join("results", run_id)
     os.makedirs(result_dir, exist_ok=True)
     with open(os.path.join(result_dir, "time_RAM_details.txt"), "w") as f:
-        f.write(f"Wall-clock time in seconds = {duration:.2f}\n")
-        f.write(f"Peak RAM usage in MB = {peak_ram:.2f}\n")
-        f.write(f"Minimum RAM usage in MB = {min_ram:.2f}\n")
-        f.write(f"Average RAM usage in MB = {avg_ram:.2f}\n")
+        f.write(f"Wall-clock time in seconds = {duration:.5f}\n")
+        f.write(f"Peak RAM usage in KB = {peak_ram:.5f}\n")
+        f.write(f"Minimum RAM usage in KB = {min_ram:.5f}\n")
+        f.write(f"Average RAM usage in KB = {avg_ram:.5f}\n")
 
     ram_log_path = os.path.join(result_dir, "ram_usage_over_time.csv")
     with open(ram_log_path, "w") as f:
-        f.write("Second;RAM_MB\n")
+        f.write("Second;RAM_KB\n")
         for i, mem in enumerate(ram_samples):
-            f.write(f"{i};{mem:.2f}\n")
+            f.write(f"{i};{mem:.50f}\n")
 
 for cfg in configs:
     print(f"Running training: {cfg['run_id']} with reward mode: {cfg['reward_mode']}, buffer size: {cfg['buffer_size']}, gamma : {cfg['gamma']} and learning rate: {cfg['learning_rate']}")
