@@ -1,0 +1,53 @@
+{
+    "num_tiles": {
+        "lesson_num": 9
+    },
+    "reward_mode": {
+        "lesson_num": 0
+    },
+    "Sorter": {
+        "checkpoints": [
+            {
+                "steps": 499874,
+                "file_path": "results\\Sorter_buffersize_163840\\Sorter\\Sorter-499874.onnx",
+                "reward": -0.9035666783650717,
+                "creation_time": 1764445439.4438796,
+                "auxillary_file_paths": [
+                    "results\\Sorter_buffersize_163840\\Sorter\\Sorter-499874.pt"
+                ]
+            },
+            {
+                "steps": 999775,
+                "file_path": "results\\Sorter_buffersize_163840\\Sorter\\Sorter-999775.onnx",
+                "reward": -1.0598100289702415,
+                "creation_time": 1764446759.0547633,
+                "auxillary_file_paths": [
+                    "results\\Sorter_buffersize_163840\\Sorter\\Sorter-999775.pt"
+                ]
+            },
+            {
+                "steps": 1000006,
+                "file_path": "results\\Sorter_buffersize_163840\\Sorter\\Sorter-1000006.onnx",
+                "reward": -1.1045333657945906,
+                "creation_time": 1764446759.2384572,
+                "auxillary_file_paths": [
+                    "results\\Sorter_buffersize_163840\\Sorter\\Sorter-1000006.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000006,
+            "file_path": "results\\Sorter_buffersize_163840\\Sorter.onnx",
+            "reward": -1.1045333657945906,
+            "creation_time": 1764446759.2384572,
+            "auxillary_file_paths": [
+                "results\\Sorter_buffersize_163840\\Sorter\\Sorter-1000006.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

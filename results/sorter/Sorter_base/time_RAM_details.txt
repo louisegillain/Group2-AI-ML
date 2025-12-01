@@ -1,4 +1,0 @@
-Wall-clock time in seconds = 2372.77
-Peak RAM usage in MB = 4.31
-Minimum RAM usage in MB = 0.00
-Average RAM usage in MB = 4.28
