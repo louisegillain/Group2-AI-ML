@@ -69,7 +69,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1143
+          seed: 967
           value: 2.0
       name: Lesson0
       completion_criteria:
@@ -82,7 +82,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1144
+          seed: 968
           value: 4.0
       name: Lesson1
       completion_criteria:
@@ -95,7 +95,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1145
+          seed: 969
           value: 6.0
       name: Lesson2
       completion_criteria:
@@ -108,7 +108,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1146
+          seed: 970
           value: 8.0
       name: Lesson3
       completion_criteria:
@@ -121,7 +121,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1147
+          seed: 971
           value: 10.0
       name: Lesson4
       completion_criteria:
@@ -134,7 +134,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1148
+          seed: 972
           value: 12.0
       name: Lesson5
       completion_criteria:
@@ -147,7 +147,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1149
+          seed: 973
           value: 14.0
       name: Lesson6
       completion_criteria:
@@ -160,7 +160,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1150
+          seed: 974
           value: 16.0
       name: Lesson7
       completion_criteria:
@@ -173,7 +173,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1151
+          seed: 975
           value: 18.0
       name: Lesson8
       completion_criteria:
@@ -186,7 +186,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1152
+          seed: 976
           value: 20.0
       name: Lesson9
       completion_criteria: null
@@ -195,7 +195,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1153
+          seed: 977
           value: 0.0
       name: reward_mode
       completion_criteria: null
