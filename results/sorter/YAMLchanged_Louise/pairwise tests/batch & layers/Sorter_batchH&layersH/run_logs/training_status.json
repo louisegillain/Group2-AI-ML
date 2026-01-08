@@ -10,38 +10,38 @@
             {
                 "steps": 499888,
                 "file_path": "results\\Sorter_batchH&layersH\\Sorter\\Sorter-499888.onnx",
-                "reward": -0.6654000236437871,
-                "creation_time": 1766370046.7771342,
+                "reward": -1.1407000534236431,
+                "creation_time": 1767651534.759278,
                 "auxillary_file_paths": [
                     "results\\Sorter_batchH&layersH\\Sorter\\Sorter-499888.pt"
                 ]
             },
             {
-                "steps": 999762,
-                "file_path": "results\\Sorter_batchH&layersH\\Sorter\\Sorter-999762.onnx",
-                "reward": -0.9247077451302455,
-                "creation_time": 1766371046.0254035,
+                "steps": 999851,
+                "file_path": "results\\Sorter_batchH&layersH\\Sorter\\Sorter-999851.onnx",
+                "reward": -0.8568286001682281,
+                "creation_time": 1767652572.1357446,
                 "auxillary_file_paths": [
-                    "results\\Sorter_batchH&layersH\\Sorter\\Sorter-999762.pt"
+                    "results\\Sorter_batchH&layersH\\Sorter\\Sorter-999851.pt"
                 ]
             },
             {
-                "steps": 1000018,
-                "file_path": "results\\Sorter_batchH&layersH\\Sorter\\Sorter-1000018.onnx",
-                "reward": -0.9247077451302455,
-                "creation_time": 1766371046.1874077,
+                "steps": 1000107,
+                "file_path": "results\\Sorter_batchH&layersH\\Sorter\\Sorter-1000107.onnx",
+                "reward": -0.8568286001682281,
+                "creation_time": 1767652572.2962484,
                 "auxillary_file_paths": [
-                    "results\\Sorter_batchH&layersH\\Sorter\\Sorter-1000018.pt"
+                    "results\\Sorter_batchH&layersH\\Sorter\\Sorter-1000107.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 1000018,
+            "steps": 1000107,
             "file_path": "results\\Sorter_batchH&layersH\\Sorter.onnx",
-            "reward": -0.9247077451302455,
-            "creation_time": 1766371046.1874077,
+            "reward": -0.8568286001682281,
+            "creation_time": 1767652572.2962484,
             "auxillary_file_paths": [
-                "results\\Sorter_batchH&layersH\\Sorter\\Sorter-1000018.pt"
+                "results\\Sorter_batchH&layersH\\Sorter\\Sorter-1000107.pt"
             ]
         }
     },
