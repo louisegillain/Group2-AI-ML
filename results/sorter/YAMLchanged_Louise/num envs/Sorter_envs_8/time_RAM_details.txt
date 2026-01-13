@@ -1,0 +1,4 @@
+Wall-clock time in seconds = 2053.30862
+Peak RAM usage in KB = 5111988.00000
+Minimum RAM usage in KB = 13104.00000
+Average RAM usage in KB = 5037961.10317

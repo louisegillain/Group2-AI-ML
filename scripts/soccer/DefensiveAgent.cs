@@ -5,7 +5,6 @@ using Unity.MLAgents.Actuators;
 
 public class DefensiveAgent : AgentSoccer
 {
-    
     [Header("Defensive References")]
     public Transform ball;
     public Rigidbody ballRb;

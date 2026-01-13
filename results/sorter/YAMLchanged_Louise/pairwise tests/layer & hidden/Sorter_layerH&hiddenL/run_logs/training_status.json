@@ -8,40 +8,40 @@
     "Sorter": {
         "checkpoints": [
             {
-                "steps": 499863,
-                "file_path": "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-499863.onnx",
-                "reward": -0.9241090660745447,
-                "creation_time": 1766356840.7875996,
+                "steps": 499761,
+                "file_path": "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-499761.onnx",
+                "reward": -1.1282249875366688,
+                "creation_time": 1767638064.5090284,
                 "auxillary_file_paths": [
-                    "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-499863.pt"
+                    "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-499761.pt"
                 ]
             },
             {
-                "steps": 999821,
-                "file_path": "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-999821.onnx",
-                "reward": -0.786466681294971,
-                "creation_time": 1766357904.3951333,
+                "steps": 999815,
+                "file_path": "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-999815.onnx",
+                "reward": -0.8914842087971536,
+                "creation_time": 1767639072.6487424,
                 "auxillary_file_paths": [
-                    "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-999821.pt"
+                    "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-999815.pt"
                 ]
             },
             {
-                "steps": 1000077,
-                "file_path": "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-1000077.onnx",
-                "reward": -0.786466681294971,
-                "creation_time": 1766357904.558636,
+                "steps": 1000071,
+                "file_path": "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-1000071.onnx",
+                "reward": -0.8914842087971536,
+                "creation_time": 1767639072.8134167,
                 "auxillary_file_paths": [
-                    "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-1000077.pt"
+                    "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-1000071.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 1000077,
+            "steps": 1000071,
             "file_path": "results\\Sorter_layerH&hiddenL\\Sorter.onnx",
-            "reward": -0.786466681294971,
-            "creation_time": 1766357904.558636,
+            "reward": -0.8914842087971536,
+            "creation_time": 1767639072.8134167,
             "auxillary_file_paths": [
-                "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-1000077.pt"
+                "results\\Sorter_layerH&hiddenL\\Sorter\\Sorter-1000071.pt"
             ]
         }
     },

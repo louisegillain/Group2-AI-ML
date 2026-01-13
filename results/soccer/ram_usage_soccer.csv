@@ -1,0 +1,1 @@
+training_run_number;strategy; gamePlay; batch_size;buffer_size;max_steps ;hidden_units;num_layers;CPU_count;CPU_freq_GHz;Total_Phys_RAM_GB ;RAM_KB 

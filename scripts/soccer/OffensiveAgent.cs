@@ -76,6 +76,7 @@ public class OffensiveAgent: AgentSoccer
 
     }
 
+    //
     public override void CollectObservations(VectorSensor sensor)
     {
         
@@ -143,7 +144,7 @@ public class OffensiveAgent: AgentSoccer
         agentRb.AddForce(move, ForceMode.VelocityChange);
         transform.Rotate(transform.up, rotate * 5f); 
         
-        lastAction = actions.ContinuousActions[0]; 
+        lastAction = actions.ContinuousActions[0];} 
 
         private void OnCollisionEnter(Collision collision)
     {
@@ -153,15 +154,7 @@ public class OffensiveAgent: AgentSoccer
         }
     }
         
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.transform == ball)
-        {
-            stepsSinceLastTouch = 0;
-        }
-    }
+    
 
 
 
