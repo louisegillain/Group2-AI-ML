@@ -60,8 +60,6 @@ def main():
     PURPLE = cfg["teams"]["purple_id"]
 
     print("Configuration loaded:")
-    print(cfg)
-
 
 
 def get_actions(session, decision_steps):
@@ -238,5 +236,5 @@ finally:
     
     # Save match results
     match_results_df = df[df['winner'].notna()]
-    match_results_df.to_csv("matches_summary.csv", index=False)
-    print("Match summary logged to matches_summary.csv")
+    match_results_df.to_csv("results/soccer/matches_summary.csv", index=False)
+    print("results/soccer/Match summary logged to matches_summary.csv")

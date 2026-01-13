@@ -6,8 +6,8 @@ environment:
   number_match: 100
 
 models:
-  blue_team_path: "C:/Users/franc/ml-agents/Project/Assets/ML-Agents/Examples/Soccer/TFModels/SoccerTwos.onnx"
-  purple_team_path: "C:/Users/franc/ml-agents/Project/Assets/ML-Agents/Examples/Soccer/TFModels/SoccerTwos.onnx"
+  blue_team_path: "C:/Users/franc/Downloads/first commit from december/first commit from december/run1/SoccerTwos.onnx"
+  purple_team_path: "C:/Users/franc/Downloads/first commit from december/first commit from december/run1/SoccerTwos.onnx"
 
 teams:
   blue_id: "BlueTeam?team=0"
