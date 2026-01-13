@@ -1,0 +1,14 @@
+# Soccer infernce Configuration
+# Last Updated: 2026-01-08
+
+environment:
+  build_path: "Project/Builds/Soccer/UnityEnvironment.exe"
+  number_match: 100
+
+models:
+  blue_team_path: "C:/Users/franc/ml-agents/Project/Assets/ML-Agents/Examples/Soccer/TFModels/SoccerTwos.onnx"
+  purple_team_path: "C:/Users/franc/ml-agents/Project/Assets/ML-Agents/Examples/Soccer/TFModels/SoccerTwos.onnx"
+
+teams:
+  blue_id: "BlueTeam?team=0"
+  purple_id: "PurpleTeam?team=1"

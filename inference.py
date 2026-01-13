@@ -1,38 +1,67 @@
+import argparse
+import os
 import time
+import yaml
 import numpy as np
 import pandas as pd
 import onnxruntime as ort
 from mlagents_envs.environment import UnityEnvironment
 from mlagents_envs.base_env import ActionTuple
 
-ENV_BUILD_PATH = "Project/Builds/Soccer/UnityEnvironment.exe"
-BLUE_MODEL_PATH = "C:/Users/franc/ml-agents/Project/Assets/ML-Agents/Examples/Soccer/TFModels/SoccerTwos.onnx"
-PURPLE_MODEL_PATH = "C:/Users/franc/ml-agents/Project/Assets/ML-Agents/Examples/Soccer/TFModels/SoccerTwos.onnx"
 
-BLUE = "BlueTeam?team=0"
-PURPLE = "PurpleTeam?team=1"
+ENV_BUILD_PATH = None
+BLUE_MODEL_PATH = None
+PURPLE_MODEL_PATH = None
+BLUE = None
+PURPLE = None
+NUMBER_MATCH = None
 
-NUMBER_MATCH = 100
 results = []
 matches_played = 0
 
-# Load ONNX models
-try:
-    blue_session = ort.InferenceSession(BLUE_MODEL_PATH, providers=['CPUExecutionProvider'])
-    purple_session = ort.InferenceSession(PURPLE_MODEL_PATH, providers=['CPUExecutionProvider'])
-    print("Models loaded")
-except Exception as e:
-    print("Error loading ONNX models:", e)
-    exit()
+def main():
+    global ENV_BUILD_PATH, NUMBER_MATCH
+    global BLUE_MODEL_PATH, PURPLE_MODEL_PATH
+    global BLUE, PURPLE
 
-# Launch environment
-env = UnityEnvironment(file_name=ENV_BUILD_PATH, worker_id=1, no_graphics=False)
-env.reset()
-print("Environment launched")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, required=True)
+    parser.add_argument("--number_match", type=int, help="Override number of matches")
+    args = parser.parse_args()
 
-global_current_step = 0
-blue_score = 0
-purple_score = 0
+    config = args.config
+    if args.number_match:
+        NUMBER_MATCH = args.number_match
+
+
+    if not os.path.exists(config):
+        raise FileNotFoundError(f"Config file {config} does not exist")
+
+
+    with open(config, 'r') as c:
+        cfg = yaml.safe_load(c)
+
+    ENV_BUILD_PATH = cfg["environment"]["build_path"]
+    if not os.path.exists(ENV_BUILD_PATH):
+        raise FileNotFoundError(f"Environment {ENV_BUILD_PATH} does not exist")
+    
+    NUMBER_MATCH = cfg["environment"]["number_match"]
+
+    BLUE_MODEL_PATH = cfg["models"]["blue_team_path"]
+    PURPLE_MODEL_PATH = cfg["models"]["purple_team_path"]
+
+    if not os.path.exists(PURPLE_MODEL_PATH):
+        raise FileNotFoundError(f"Model {PURPLE_MODEL_PATH} does not exist")
+    
+    if not os.path.exists(BLUE_MODEL_PATH):
+        raise FileNotFoundError(f"Model {BLUE_MODEL_PATH} does not exist")
+
+    BLUE = cfg["teams"]["blue_id"]
+    PURPLE = cfg["teams"]["purple_id"]
+
+    print("Configuration loaded:")
+    print(cfg)
+
 
 
 def get_actions(session, decision_steps):
@@ -82,16 +111,15 @@ def recordStepData(team, decision_steps, actions):
         ball_x, ball_y, ball_z = np.nan, np.nan, np.nan # Global ball pos
         ball_x_vel, ball_y_vel, ball_z_vel = np.nan, np.nan, np.nan # Global ball vel
 
-        goal_distance = agent_obs[6] # relative x of ball and agent
+        goal_distance = agent_obs[6]
         
-        discrete_action = actions[i][0]
-
-        move_forward = 1 if discrete_action == 1 else 0
-        move_back = 1 if discrete_action == 2 else 0
-        rotate_left = 1 if discrete_action == 3 else 0
-        rotate_right = 1 if discrete_action == 4 else 0
-        move_right = 1 if discrete_action == 5 else 0
-        move_left = 1 if discrete_action == 6 else 0
+        a = actions[i]
+        move_forward = 1 if a[0] == 1 else 0
+        move_back    = 1 if a[0] == 2 else 0
+        move_right   = 1 if a[1] == 1 else 0
+        move_left    = 1 if a[1] == 2 else 0
+        rotate_left  = 1 if a[2] == 1 else 0
+        rotate_right = 1 if a[2] == 2 else 0
         
 
         current_score = f"{blue_score}-{purple_score}"
@@ -124,6 +152,27 @@ def recordStepData(team, decision_steps, actions):
             "reward": decision_steps.reward[i],
         })
 
+
+if __name__ == "__main__":
+    main()
+
+# Load ONNX models
+try:
+    blue_session = ort.InferenceSession(BLUE_MODEL_PATH, providers=['CPUExecutionProvider'])
+    purple_session = ort.InferenceSession(PURPLE_MODEL_PATH, providers=['CPUExecutionProvider'])
+    print("Models loaded")
+except Exception as e:
+    print("Error loading ONNX models:", e)
+    exit()
+
+# Launch environment
+env = UnityEnvironment(file_name=ENV_BUILD_PATH, worker_id=1, no_graphics=False)
+env.reset()
+print("Environment launched")
+
+global_current_step = 0
+blue_score = 0
+purple_score = 0
 starting_time = time.time()
 
 try:
