@@ -9,6 +9,13 @@ public enum Team
     Purple = 1
 }
 
+public enum Strategy
+{
+    Offensive, Defensive, Normal
+}
+
+//normal agent is the standard code (this file)
+
 public class AgentSoccer : Agent
 {
     // Note that that the detectable tags are different for the blue and purple teams. The order is
@@ -34,7 +41,7 @@ public class AgentSoccer : Agent
     public Position position;
 
     const float k_Power = 2000f;
-    float m_Existential;
+    public float m_Existential;
     float m_LateralSpeed;
     float m_ForwardSpeed;
 
@@ -193,7 +200,7 @@ public class AgentSoccer : Agent
     /// <summary>
     /// Used to provide a "kick" to the ball.
     /// </summary>
-    void OnCollisionEnter(Collision c)
+    public void OnCollisionEnter(Collision c)
     {
         var force = k_Power * m_KickPower;
         if (position == Position.Goalie)
@@ -202,9 +209,8 @@ public class AgentSoccer : Agent
         }
         if (c.gameObject.CompareTag("ball"))
         {
-            AddReward(.2f * m_BallTouch);
-            var dir = c.contacts[0].point - transform.position;
-            dir = dir.normalized;
+            //AddReward(.2f * m_BallTouch);
+            var dir = (c.contacts[0].point - transform.position).normalized;
             c.gameObject.GetComponent<Rigidbody>().AddForce(dir * force);
         }
     }

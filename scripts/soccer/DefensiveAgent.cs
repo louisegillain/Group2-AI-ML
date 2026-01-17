@@ -13,72 +13,38 @@ public class DefensiveAgent : AgentSoccer
     public float fieldLength = 40f; 
     public LayerMask opponentLayer;
 
-    private Rigidbody agentRb;
+    float m_KickPower;
+
+    public float m_Existential;
+
+    const float k_Power = 2000f;
+
+    public Transform teammate;
+    private int stepsSinceLastTouch = 0;
+    private Rigidbody d_agentRb;
     private Rigidbody opponentRb; 
     
     private const float MOVEMENT_MULTIPLIER = 10f; // scales the resultant force for singnificant output
 
     public override void Initialize()
     {
-        SoccerEnvController envController = GetComponentInParent<SoccerEnvController>();
-        if (envController != null)
-        {
-            m_Existential = 1f / envController.MaxEnvironmentSteps;
-        }
-        else
-        {
-            m_Existential = 1f / MaxStep;
-        }
-
-        m_BehaviorParameters = gameObject.GetComponent<BehaviorParameters>();
-        if (m_BehaviorParameters.TeamId == (int)Team.Blue)
-        {
-            team = Team.Blue;
-            initialPos = new Vector3(transform.position.x - 5f, .5f, transform.position.z);
-            rotSign = 1f;
-        }
-        else
-        {
-            team = Team.Purple;
-            initialPos = new Vector3(transform.position.x + 5f, .5f, transform.position.z);
-            rotSign = -1f;
-        }
-        if (position == Position.Goalie)
-        {
-            m_LateralSpeed = 1.0f;
-            m_ForwardSpeed = 1.0f;
-        }
-        else if (position == Position.Striker)
-        {
-            m_LateralSpeed = 0.3f;
-            m_ForwardSpeed = 1.3f;
-        }
-        else
-        {
-            m_LateralSpeed = 0.3f;
-            m_ForwardSpeed = 1.0f;
-        }
-        m_SoccerSettings = FindObjectOfType<SoccerSettings>();
-        agentRb = GetComponent<Rigidbody>();
-        agentRb.maxAngularVelocity = 500;
-
-        m_ResetParams = Academy.Instance.EnvironmentParameters;
-
-    
+        base.Initialize();
+        if (ball != null && ballRb) ballRb = ball.GetComponent<Rigidbody>();
     }
 
     public override void OnEpisodeBegin()
     {
-        m_BallTouch = m_ResetParams.GetWithDefault("ball_touch", 0);
+        base.OnEpisodeBegin();
     }
     
     public override void CollectObservations(VectorSensor sensor)
     {
+        if (ball == null || teammate == null) return;
     
-        float distanceToBall = Vector3.Distance(transform.position, ball.position);
         float fieldHalf = fieldLength / 2f;
 
         // distance to ball
+        float distanceToBall = Vector3.Distance(transform.position, ball.position);
         sensor.AddObservation(distanceToBall); 
 
         // opponent data 
@@ -99,6 +65,7 @@ public class DefensiveAgent : AgentSoccer
             sensor.AddObservation(0f); 
         }
 
+        sensor.AddObservation(stepsSinceLastTouch); 
         //goal angle (own goal)
         Vector3 myGoalDirection = (myGoal.position - transform.position).normalized;
         sensor.AddObservation(transform.InverseTransformDirection(myGoalDirection));
@@ -118,9 +85,7 @@ public class DefensiveAgent : AgentSoccer
         // agent's angular velocity 
         sensor.AddObservation(agentRb.angularVelocity);
         
-        
     }
-
     public override void OnActionReceived(ActionBuffers actions)
     {
         if (position == Position.Goalie)
@@ -133,14 +98,25 @@ public class DefensiveAgent : AgentSoccer
             // Existential penalty for Strikers
             AddReward(-m_Existential);
         }
-        MoveAgent(actionBuffers.DiscreteActions);
+        MoveAgent(actions.DiscreteActions);
         
-        // example movement
-        float forward = actions.ContinuousActions[1];
-        float rotate = actions.ContinuousActions[2];
-        
-        Vector3 move = transform.forward * forward * MOVEMENT_MULTIPLIER;
-        agentRb.AddForce(move, ForceMode.VelocityChange);
-        transform.Rotate(transform.up, rotate * 5f); 
+    }
+    private void OnCollisionEnter(Collision c){
+        var force = k_Power * m_KickPower;
+            if (position == Position.Goalie)
+                {
+                    force = k_Power;
+                }
+            if (c.gameObject.CompareTag("ball"))
+                {
+                    //AddReward(.2f * m_BallTouch);
+                    var dir = (c.contacts[0].point - transform.position).normalized;
+                    c.gameObject.GetComponent<Rigidbody>().AddForce(dir * force);
+                }
+
+        if(c.gameObject.CompareTag("ball"))
+        {
+            stepsSinceLastTouch = 0;
+        }
     }
 }
