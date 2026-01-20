@@ -604,7 +604,7 @@ file in the top-level directory of your ASP.NET application.
 ]]>
   </default>
 
-  <!-- default config file definitions -->
+  <!-- default configg file definitions -->
   <defaultConfigFile name="web.config" fileName="Web.config" target="web">
     <section name="configuration">
       <section name="system.web">

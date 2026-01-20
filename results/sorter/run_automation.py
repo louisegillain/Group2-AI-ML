@@ -28,8 +28,8 @@ configs = [ #change to the runs you want to do
     {"run_id": "Sorter_learningrate_001","reward_mode": 0, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.01},    
 ]
 
-yaml_path = "C:/Users/louis/ml-agents/config/ppo/Sorter_curriculum.yaml" #change path to the yaml in your computer
-generated_dir = "C:/Users/louis/ml-agents/config/ppo/generated" #change (this is to have a copy of the modified yaml, important otherwise it runs with original parameters, it can be whereever in your computer)
+yaml_path = "C:/Users/louis/ml-agents/configg/ppo/Sorter_curriculum.yaml" #change path to the yaml in your computer
+generated_dir = "C:/Users/louis/ml-agents/configg/ppo/OGgenerate" #change (this is to have a copy of the modified yaml, important otherwise it runs with original parameters, it can be whereever in your computer)
 os.makedirs(generated_dir, exist_ok=True)
 
 def monitor_training(cmd, run_id):

@@ -1,0 +1,2 @@
+﻿run_id,batch_size,hidden_units,num_layers,duration_sec,final_reward
+Soccer_B512_H128_L1_161701,512,128,1,2564.83,-1.05
