@@ -37,24 +37,47 @@
     You can find the preprocessing script PreProcessing.py in results\sorter\sorter_models\scripts\data. 
     Select the folder of the runs you want to check, copy its path in line 44, then run. You will see the anomalies in your terminal.
 
-### Random Forest Model
-    Navigate to the directory containing the model:
-    results\sorter\sorter_models\scripts\model
+### Gradient Boosting Model (wall-clock)
+    1. Ensure the virtual environment described in SETUP.md is active.
+    2. From the repo root run:
 
-    Then write this command in a virtual environment:
+```
+PYTHONDONTWRITEBYTECODE=1 \
+  python results/sorter/sorter_models/scripts/model/train_wallclock_gbdt.py \
+    --root results/sorter/YAMLchanged_Louise \
+    --min-buffer-size 10000 \
+    --random-state 18 \
+    --model-out results/sorter/sorter_models/artifacts/wallclock_model.pkl
+```
 
-    You will be able to see the results in the temrinal
+    The script prints MAE/R² in the terminal and writes the trained model (plus scaler + feature metadata) to the `artifacts` folder.
+    Parameter notes:
+    - `--root` points to the directory containing the completed Sorter runs (configuration, RAM logs, etc.) that will be ingested for training.
+    - `--min-buffer-size` is the lower bound applied when filtering runs by `hyper_buffer_size`; values below the threshold are discarded. (10000 keeps mid/large buffer regimes.)
+    - `--random-state` seeds the train/test split and the regressor to produce the recommended 80/20 partition when set to 18.
+    - `--model-out` specifies where the trained model artifact (`*.pkl`) should be stored.
 
-### Gradient Boosting Model
-    To run the model, make sure the virtual environment is set up and activated (see SETUP.md).
+### Random Forest Model (resource prediction)
+    1. Ensure the virtual environment described in SETUP.md is active.
+    2. From the repo root run:
 
-    Navigate to the directory containing the model:
-    results/sorter/sorter_models/scripts/model
+```
+PYTHONDONTWRITEBYTECODE=1 \
+  python results/sorter/sorter_models/scripts/model/train_resource_predictor.py \
+    --root results/sorter/YAMLchanged_Louise \
+    --min-buffer-size 10000 \
+    --random-state 18 \
+    --show-metrics \
+    --comparison-samples 5 \
+    --model-out results/sorter/sorter_models/artifacts/sorter_resource_model.pkl \
+    --export-dataset results/sorter/sorter_models/artifacts/sorter_resource_data.csv
+```
 
-    Run the script that trains and evaluates the Gradient Boosted Regression model:
-    gbdt_model.py
-
-    The script will load the preprocessed data, train the model, and output the prediction results and evaluation metrics in the terminal.
+    This prints sample predictions plus validation metrics, saves the fitted model, and exports the assembled dataset for inspection.
+    Parameter notes (in addition to the shared options above):
+    - `--show-metrics` prints the MAE/R² table for both targets after training.
+    - `--comparison-samples` controls how many hold-out runs are shown in the prediction vs. actual comparison table.
+    - `--export-dataset` writes the engineered dataset used for training to the specified CSV path for later analysis.
 
     
 ## Soccer Scripts
