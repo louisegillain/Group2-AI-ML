@@ -41,9 +41,12 @@ def verifyRAM(run_path) :
             z = diff / std if std > 0 else float("inf")
             print(f"Anomaly detected at time {row['Second']}: RAM = {ram_value} KB, with mean = {mean}, diff = {diff}, z = {z}")
 
-runs_dir = Path("C:\\Users\\louis\\Group2-AI-ML\\results\\sorter\\YAMLchanged_Louise\\pairwise tests\\layer & hidden")
-for run in runs_dir.iterdir():
-    print(run.name)
-    run_path = run
-    verifyContent(run_path)
-    verifyRAM(run_path)
+if __name__ == "__main__":
+    runs_dir = Path(
+        "C:\\Users\\louis\\Group2-AI-ML\\results\\sorter\\YAMLchanged_Louise\\pairwise tests\\layer & hidden"
+    )
+    for run in runs_dir.iterdir():
+        print(run.name)
+        run_path = run
+        verifyContent(run_path)
+        verifyRAM(run_path)
