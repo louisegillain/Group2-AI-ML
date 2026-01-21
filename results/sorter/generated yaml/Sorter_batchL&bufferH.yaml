@@ -1,0 +1,103 @@
+behaviors:
+  Sorter:
+    hyperparameters:
+      batch_size: 128
+      beta: 0.005
+      buffer_size: 163840
+      epsilon: 0.2
+      lambd: 0.95
+      learning_rate: 0.0003
+      learning_rate_schedule: constant
+      num_epoch: 3
+    keep_checkpoints: 5
+    max_steps: 1000000
+    network_settings:
+      hidden_units: 128
+      normalize: false
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    summary_freq: 10000
+    time_horizon: 256
+    trainer_type: ppo
+environment_parameters:
+  num_tiles:
+    curriculum:
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.3
+      name: Lesson0
+      value: 2.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.4
+      name: Lesson1
+      value: 4.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.45
+      name: Lesson2
+      value: 6.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.5
+      name: Lesson3
+      value: 8.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.55
+      name: Lesson4
+      value: 10.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.6
+      name: Lesson5
+      value: 12.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.65
+      name: Lesson6
+      value: 14.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.7
+      name: Lesson7
+      value: 16.0
+    - completion_criteria:
+        behavior: Sorter
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.75
+      name: Lesson8
+      value: 18.0
+    - name: Lesson9
+      value: 20.0
+  reward_mode: 0

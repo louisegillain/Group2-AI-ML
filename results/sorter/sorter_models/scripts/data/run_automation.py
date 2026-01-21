@@ -51,9 +51,9 @@ configs = [ #change to the runs you want to do
     {"run_id": "Sorter_envs_8","buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 2, "num_envs" : 8},
 ]
 
-base_dir = Path(__file__).resolve().parent
-yaml_path = base_dir / "results" / "sorter" / "Sorter_curriculum.yaml"
-generated_dir = base_dir / "results" / "sorter" / "generated yaml" # this is to have a copy of the modified yaml, important otherwise it runs with original parameters, it can be whereever in your computer
+base_dir = Path(__file__).resolve().parents[3]
+yaml_path = base_dir / "Sorter_curriculum.yaml"
+generated_dir = base_dir / "generated yaml" # this is to have a copy of the modified yaml, important otherwise it runs with original parameters, it can be whereever in your computer
 os.makedirs(generated_dir, exist_ok=True)
 
 # Extract the RAM and time details, puts them in a txt file and create a csv with RAM usage overtime
@@ -128,8 +128,8 @@ for cfg in configs:
     with open(new_yaml_path, "w") as f:
         yaml.dump(config, f)
     
-    builder_path = base_dir / "results" / "sorter" / "UnityEnvironment.exe"
-    results_dir = base_dir / "results" / "sorter" / "YAMLchanged_Louise"
+    builder_path = base_dir / "UnityEnvironment.exe"
+    results_dir = base_dir / "YAMLchanged_Louise"
     train_cmd = [
         "mlagents-learn",
         new_yaml_path,

@@ -24,8 +24,7 @@ behaviors:
     time_horizon: 256
     summary_freq: 10000
 environment_parameters:
-  reward_mode:
-    value : 0
+  reward_mode: 0
   num_tiles:
     curriculum:
       - name: Lesson0 # The '-' is important as this is a list
