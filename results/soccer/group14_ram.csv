@@ -1,0 +1,7 @@
+training_run_number;strategy;gamePlay;batch_size;buffer_size;max_steps;hidden_units;num_layers;CPU_count;CPU_freq_GHz;Total_Phys_RAM_GB;RAM_KB
+1;poca;soccer;1024;10240;5000000;;;;;;1244000.0
+2;poca;soccer;2048;20480;5000000;;;;;;1670456.000512
+3;poca;soccer;2048;20480;5000000;;;;;;1303075.999744
+4;poca;soccer;4096;40960;5000000;;;;;;2076636.000256
+5;poca;soccer;;;4980000;;;;;;1524784.0
+6;poca;soccer;;;12470000;;;;;;1679072.0
