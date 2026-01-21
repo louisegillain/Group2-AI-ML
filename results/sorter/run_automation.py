@@ -3,35 +3,60 @@ import subprocess
 import time
 import yaml
 import psutil
+from pathlib import Path
 
-# List of training runs
+# List of training 
+
+# Pattern to follow to write the runs :
+# {"run_id": "*name of your run*", *list of hyperparameters*},
+# The list of hyperparameters should be presented as follows :
+# For each hyperparameters -> "*name of hyperparameter*": *value*
+# If you have more than 1 hyperparameter, separate them with a comma
+
+# A few examples are provided just under.
 configs = [ #change to the runs you want to do
-    {"run_id": "Sorter_base", "reward_mode": 1, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_movingfast","reward_mode": 1, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_early","reward_mode": 2, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_still","reward_mode": 3, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_fast&early","reward_mode": 4, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_early&still","reward_mode": 5, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_fast&still","reward_mode": 6, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_rewardmode_fast&early&still","reward_mode": 7, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_buffersize_10240","reward_mode": 0, "buffer_size": 10240, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_buffersize_20480","reward_mode": 0, "buffer_size": 20480, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_buffersize_81920","reward_mode": 0, "buffer_size": 81920, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_buffersize_163840","reward_mode": 0, "buffer_size": 163840, "gamma": 0.99, "learning_rate": 0.0003},
-    {"run_id": "Sorter_gamma_050","reward_mode": 0, "buffer_size": 40960, "gamma": 0.50, "learning_rate": 0.0003},
-    {"run_id": "Sorter_gamma_070","reward_mode": 0, "buffer_size": 40960, "gamma": 0.70, "learning_rate": 0.0003},
-    {"run_id": "Sorter_gamma_090","reward_mode": 0, "buffer_size": 40960, "gamma": 0.90, "learning_rate": 0.0003},
-    {"run_id": "Sorter_gamma_095","reward_mode": 0, "buffer_size": 40960, "gamma": 0.95, "learning_rate": 0.0003},
-    {"run_id": "Sorter_learningrate_000001","reward_mode": 0, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.00001},
-    {"run_id": "Sorter_learningrate_00001","reward_mode": 0, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.0001},
-    {"run_id": "Sorter_learningrate_0001","reward_mode": 0, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.001},
-    {"run_id": "Sorter_learningrate_001","reward_mode": 0, "buffer_size": 40960, "gamma": 0.99, "learning_rate": 0.01},    
+    {"run_id": "Sorter_batchL&bufferL", "buffer_size": 10240,"batch_size": 128, "hidden_units": 128, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_batchL&bufferH", "buffer_size": 163840,"batch_size": 128, "hidden_units": 128, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_batchM&bufferM", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_batchH&bufferL", "buffer_size": 10240,"batch_size": 2048, "hidden_units": 128, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_batchH&bufferH", "buffer_size": 163840,"batch_size": 2048, "hidden_units": 128, "num_layers": 2, "num_envs" : 1},
+
+    {"run_id": "Sorter_bufferL&hiddenL", "buffer_size": 10240,"batch_size": 512, "hidden_units": 64, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_bufferL&hiddenH", "buffer_size": 10240,"batch_size": 512, "hidden_units": 256, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_bufferM&hiddenM", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_bufferH&hiddenL", "buffer_size": 163840,"batch_size": 512, "hidden_units": 64, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_bufferH&hiddenH", "buffer_size": 163840,"batch_size": 512, "hidden_units": 256, "num_layers": 2, "num_envs" : 1},
+
+    {"run_id": "Sorter_hiddenunits_32", "buffer_size": 40960,"batch_size": 512, "hidden_units": 32, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_64", "buffer_size": 40960,"batch_size": 512, "hidden_units": 64, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_96", "buffer_size": 40960,"batch_size": 512, "hidden_units": 96, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_160", "buffer_size": 40960,"batch_size": 512, "hidden_units": 160, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_192", "buffer_size": 40960,"batch_size": 512, "hidden_units": 192, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_224", "buffer_size": 40960,"batch_size": 512, "hidden_units": 224, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_256", "buffer_size": 40960,"batch_size": 512, "hidden_units": 256, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_320", "buffer_size": 40960,"batch_size": 512, "hidden_units": 320, "num_layers": 2, "num_envs" : 1},
+    {"run_id": "Sorter_hiddenunits_384", "buffer_size": 40960,"batch_size": 512, "hidden_units": 384, "num_layers": 2, "num_envs" : 1},
+
+    {"run_id": "Sorter_numlayer_1", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 1, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_3", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 3, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_4", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 4, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_5", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 5, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_6", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 6, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_7", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 7, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_8", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 8, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_9", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 9, "num_envs" : 1},
+    {"run_id": "Sorter_numlayer_10", "buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 10, "num_envs" : 1},
+
+    {"run_id": "Sorter_envs_4","buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 2, "num_envs" : 4},
+    {"run_id": "Sorter_envs_8","buffer_size": 40960,"batch_size": 512, "hidden_units": 128, "num_layers": 2, "num_envs" : 8},
 ]
 
-yaml_path = "C:/Users/louis/ml-agents/config/ppo/Sorter_curriculum.yaml" #change path to the yaml in your computer
-generated_dir = "C:/Users/louis/ml-agents/config/ppo/generated" #change (this is to have a copy of the modified yaml, important otherwise it runs with original parameters, it can be whereever in your computer)
+base_dir = Path(__file__).resolve().parent
+yaml_path = base_dir / "results" / "sorter" / "Sorter_curriculum.yaml"
+generated_dir = base_dir / "results" / "sorter" / "generated yaml" # this is to have a copy of the modified yaml, important otherwise it runs with original parameters, it can be whereever in your computer
 os.makedirs(generated_dir, exist_ok=True)
 
+# Extract the RAM and time details, puts them in a txt file and create a csv with RAM usage overtime
 def monitor_training(cmd, run_id):
     start_time = time.time()
     process = subprocess.Popen(cmd)
@@ -85,35 +110,34 @@ def monitor_training(cmd, run_id):
         for i, mem in enumerate(ram_samples):
             f.write(f"{i};{mem:.50f}\n")
 
+
+# Runs the scripts for each run
 for cfg in configs:
-    print(f"Running training: {cfg['run_id']} with reward mode: {cfg['reward_mode']}, buffer size: {cfg['buffer_size']}, gamma : {cfg['gamma']} and learning rate: {cfg['learning_rate']}")
-    # change above for your specific runs (cfg['parameter'] takes the parameter value in each run)
+    print(f"Running training: {cfg['run_id']}")
 
     # Load and modify YAML
-    # change here for every parameter you are changing, you basically need to put the "path" to the parameter in the yaml file in the [] (each [] is a "level" of the yaml, look at the ones written to understand)
     with open(yaml_path, "r") as f:
         config = yaml.safe_load(f)
-    config["environment_parameters"]["reward_mode"] = {
-            "sampler_type": "constant",
-            "sampler_parameters": {
-            "value": cfg["reward_mode"]
-            }  #this was kind of a exception case, yours should look like the other ones normally
-    }
     config["behaviors"]["Sorter"]["hyperparameters"]["buffer_size"] = cfg["buffer_size"]
-    config["behaviors"]["Sorter"]["hyperparameters"]["gamma"] = cfg["gamma"]
-    config["behaviors"]["Sorter"]["hyperparameters"]["learning_rate"] = cfg["learning_rate"]
+    config["behaviors"]["Sorter"]["hyperparameters"]["batch_size"] = cfg["batch_size"]
+    config["behaviors"]["Sorter"]["network_settings"]["hidden_units"] = cfg["hidden_units"]
+    config["behaviors"]["Sorter"]["network_settings"]["num_layers"] = cfg["num_layers"]
 
     # Save new YAML
     new_yaml_path = os.path.join(generated_dir, f"{cfg['run_id']}.yaml")
     with open(new_yaml_path, "w") as f:
         yaml.dump(config, f)
     
+    builder_path = base_dir / "results" / "sorter" / "UnityEnvironment.exe"
+    results_dir = base_dir / "results" / "sorter" / "YAMLchanged_Louise"
     train_cmd = [
         "mlagents-learn",
         new_yaml_path,
         "--run-id", cfg["run_id"],
-        "--env", "C:/Users/louis/ml-agents/UnityEnvironment.exe", # change to path to the builer
+        "--results-dir", results_dir, 
+        "--env", builder_path,
         "--no-graphics"
+        # "--num-envs", str(cfg["num_envs"]) 
     ]
     monitor_training(train_cmd, cfg["run_id"])
     

@@ -25,7 +25,7 @@ def main():
     global BLUE, PURPLE
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, required=True)
+    parser.add_argument("--configg", type=str, required=True)
     parser.add_argument("--number_match", type=int, help="Override number of matches")
     args = parser.parse_args()
 
