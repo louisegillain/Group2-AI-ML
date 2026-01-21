@@ -3,7 +3,16 @@
 
 ## Virtual Environment
     A SETUP.md is available in the repo to set the virtual environment.
-    We used an Anaconda virtual environment to run the automation script, this doesn’t affect the results of our runs.
+
+    We used an Miniconda virtual environment to run the automation script, this doesn’t affect the results of our runs. Here is a list of instructions to use Miniconda :
+    1. Install Miniconda ons https://www.anaconda.com/docs/getting-started/miniconda/main
+    2. In the wizard, uncheck "Register Miniconda3 as my default Python 3.12".
+    3. Open the Anaconda Powershell Prompt
+    4. Write the following command : conda create -n mlagents python=3.10.11 && conda activate mlagents
+    5. Type "y"
+
+    For every following time you want to use this virtual environment, just type "conda activate mlagents" in an Anaconda Powershell Prompt.
+    To be sure you are in the environment, the (base) at the beginning of the prompt line should be replaced by (mlagents).
 
 ## Sorter scripts
 ### Automation scripts to run trainings
@@ -24,4 +33,4 @@
     4. You can find your runs in results/sorter/YAMLchanged_Louise, please put your runs in the corresponding folder(s) or create new ones if needed.
 
 ### Preprocessing script
-    You can find the preprocessing script PreProcessing.py in results/sorter. Select the folder of the runs you want to check, copy its path in line 44, then run. You will see the anomalies in yout terminals.
+    You can find the preprocessing script PreProcessing.py in results/sorter. Select the folder of the runs you want to check, copy its path in line 44, then run. You will see the anomalies in your terminal.
