@@ -1,0 +1,7 @@
+strategy;game_play;max_steps;batch_size;num_layers;hidden_units;buffer_units;total_duration
+poca;soccer;5000000;1024;;;10240;7531.147
+poca;soccer;5000000;2048;;;20480;9375.254
+poca;soccer;5000000;2048;;;20480;7523.028
+poca;soccer;5000000;4096;;;40960;13094.293
+poca;soccer;4980000;;;;;15528.543
+poca;soccer;12470000;;;;;39179
