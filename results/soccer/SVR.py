@@ -27,7 +27,7 @@ targets = {
     'Average RAM Usage': 'avg_ram_kb'
 }
 
-print("\n--- SVR RESEARCH ANALYSIS ---")
+print("\n SVR results : ")
 
 for label, col_name in targets.items():
     y = df[col_name]
