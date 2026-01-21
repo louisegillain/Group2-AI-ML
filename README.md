@@ -33,6 +33,9 @@
     4. You can find your runs in results/sorter/YAMLchanged_Louise, please put your runs in the corresponding folder(s) or create new ones if needed.
 
 ### Preprocessing script
+    You can find the preprocessing script PreProcessing.py in results/sorter. Select the folder of the runs you want to check, copy its path in line 44, then run. You will see the anomalies in yout terminals.
+
+    
 ## Soccer Scripts
 ### Automation script to run trainings
     In the results/soccer folder, you can find the run_automation_soccer.py script. Once mlagents is correctly installed on your device, you will need to make sure the build environment is correctly made. You will need to first change the paths at the very top to match those on your device, most of which don’t need much changing. This is to ensure that the results go to the correct folder and that the data can be interpreted properly. You can then change the name of the master file on line 27 to a name of your choice. Once everything is set up properly, you must open the Anaconda powershell, activate ML Agents, and then run the script using “python” followed by your path to the script. This will activate the automation script and keep running until all 27 unique runs are completed, while logging the information in a csv file.
